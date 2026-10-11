@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="description" content="Weatherly: a dark, storm-inspired weather app powered by Open-Meteo.">
+  <title>Weatherly | Live weather</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app">
+
+    <!-- Page heading -->
+    <header class="site-header">
+      <h1 class="logo">Weatherly</h1>
+      <p class="tagline">Live skies. Zero fluff.</p>
+    </header>
+
+    <main>
+      <!-- Search box + unit toggle -->
+      <section class="controls" aria-label="Search and settings">
+        <form id="search-form" class="search-form" novalidate>
+          <label for="city-input" class="visually-hidden">City name</label>
+          <input
+            id="city-input"
+            type="search"
+            name="city"
+            placeholder="Search a city, e.g. Dhaka"
+            autocomplete="off"
+            maxlength="80"
+          >
+          <button type="submit" id="search-button" class="primary-btn">Search</button>
+        </form>
+
+        <div class="unit-toggle" role="group" aria-label="Temperature unit">
+          <button type="button" id="unit-c" class="unit-btn is-active" aria-pressed="true">°C</button>
+          <button type="button" id="unit-f" class="unit-btn" aria-pressed="false">°F</button>
+        </div>
+      </section>
+
+      <!-- Hidden live region: screen readers hear short status updates -->
+      <div id="status" class="visually-hidden" role="status" aria-live="polite"></div>
+
+      <!-- 1) Welcome state (shown before the first search finishes) -->
+      <section id="welcome-state" class="card message-card">
+        <h2>Welcome to Weatherly</h2>
+        <p>Type any city above and press <strong>Enter</strong> or click <strong>Search</strong> to see its current weather.</p>
+      </section>
+
+      <!-- 2) Loading state -->
+      <section id="loading-state" class="card loading-card" hidden>
+        <div class="spinner" aria-hidden="true"></div>
+        <p>Scanning the skies…</p>
+      </section>
+
+      <!-- 3) Error state -->
+      <section id="error-state" class="card message-card error-card" role="alert" hidden>
+        <h2>Signal lost</h2>
+        <p id="error-message"></p>
+      </section>
+
+      <!-- 4) Weather results -->
+      <article id="weather-state" class="card weather-card" aria-labelledby="city-name" hidden>
+        <div class="weather-top">
+          <div>
+            <h2 id="city-name" class="city-name"></h2>
+            <p id="local-time" class="muted"></p>
+          </div>
+          <div id="weather-icon" class="weather-icon" role="img" aria-label=""></div>
+        </div>
+
+        <div class="weather-main">
+          <p id="temperature" class="temperature"></p>
+          <p id="description" class="description"></p>
+        </div>
+
+        <dl class="details">
+          <div class="detail">
+            <dt>Feels like</dt>
+            <dd id="feels-like"></dd>
+          </div>
+          <div class="detail">
+            <dt>Humidity</dt>
+            <dd id="humidity"></dd>
+          </div>
+          <div class="detail">
+            <dt>Wind speed</dt>
+            <dd id="wind"></dd>
+          </div>
+        </dl>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <p>Weather data by <a href="https://open-meteo.com/" target="_blank" rel="noopener noreferrer">Open-Meteo.com</a></p>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
